@@ -1,0 +1,87 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgb(234, 234, 234);
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 80px;
+  margin-left: 20px;
+  height: 60px;
+}
+
+.header div {
+  display: flex;
+  align-items: center;
+}
+
+.header span {
+  display: flex;
+  align-items: center;
+  color: grey;
+  height: 50px;
+}
+
+.header span p {
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+.button {
+  background-color: #a62626;
+  color: #fff;
+  height: 40px;
+  width: 80px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  margin-right: 40px;
+}
+/* Wrapper for the profile icon and dropdown */
+.profileMenu {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style for the profile link */
+.profileLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Style for the profile icon container */
+.profileIcon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dropdown menu - hidden by default */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+/* Logout button inside the dropdown */
+/* .logoutButton {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-weight: bold;
+} */
+
+/* Show dropdown on hover */
+.profileMenu:hover .dropdown {
+  display: block;
+}

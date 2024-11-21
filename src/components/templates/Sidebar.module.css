@@ -1,0 +1,28 @@
+.sidebar {
+  margin-top: 30px;
+  width: 200px;
+}
+
+.sidebar li {
+  display: flex;
+  margin: 20px 0;
+  border-right: 1px solid gray;
+
+}
+
+.sidebar li {
+  font-weight: 200;
+  margin-right: 10px;
+  color: grey;
+}
+.name {
+  font-weight: 200;
+  margin-right: 10px;
+  color: grey;
+}
+.selected {
+  font-weight: bold; /* Makes the selected category bold */
+  color: red; /* Change the color to blue, you can choose any color */
+  margin-right: 10px;
+
+}
