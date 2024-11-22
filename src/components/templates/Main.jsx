@@ -1,23 +1,58 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { sp } from "utils/numbers";
 import styles from "./Main.module.css";
+import Loader from "../modules/Loader";
 
 function Main({ allProducts, selectedCategory }) {
-  // Filter posts based on the selected category
-  const filteredPosts = selectedCategory
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10; // Set how many products per page you want
+
+  // Calculate the products for the current page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  // Filter products based on selected category
+  const filteredProducts = selectedCategory
     ? allProducts.filter((post) => post.category_id === selectedCategory)
-    : allProducts; // Show all products if no category is selected
+    : allProducts;
+
+  // Paginate filtered products
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Handle loading state
+  useEffect(() => {
+    if (allProducts) {
+      setLoading(false);
+    }
+  }, [allProducts]);
+
+  // Handle page change
+  const nextPage = () => {
+    if (currentPage < Math.ceil(filteredProducts.length / productsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
+    <div className={styles.contain}>
     <div className={styles.container}>
-      {filteredPosts.length > 0 ? (
-        filteredPosts.map((post) => {
-          // Log the post data to verify what we have
-          console.log("Post Data:", post);
-
-          // Directly access the image URL from the backend
-          const imageUrl = post.first_pic ? post.first_pic.url || post.first_pic.link : null;
-          console.log("Image URL:", imageUrl); // Check the image URL
+      {loading ? (
+        <div className={styles.loader}>
+          <Loader />
+        </div>
+      ) : currentProducts.length > 0 ? (
+        currentProducts.map((post) => {
+          const imageUrl = post.first_pic
+            ? post.first_pic.url || post.first_pic.link
+            : null;
 
           return (
             <div key={post.id} className={styles.card}>
@@ -30,7 +65,6 @@ function Main({ allProducts, selectedCategory }) {
                   <span>{post.address}</span>
                 </div>
               </div>
-              {/* Use the image URL directly */}
               <img
                 src={imageUrl ? `http://localhost:8000${imageUrl}` : "https://via.placeholder.com/300?text=No+Image+Submitted"}
                 alt={`Product ${post.name}`}
@@ -51,7 +85,15 @@ function Main({ allProducts, selectedCategory }) {
           <p>ممنون از صبر شما.</p>
         </div>
       )}
+
     </div>
+      {/* Pagination Buttons */}
+      <div className={styles.pagination}>
+        <button onClick={prevPage} disabled={currentPage === 1}>قبلی</button>
+        <span>{`صفحه ${currentPage}`}</span>
+        <button onClick={nextPage} disabled={currentPage * productsPerPage >= filteredProducts.length}>بعدی</button>
+      </div>
+     </div>
   );
 }
 

@@ -21,3 +21,41 @@
   text-align: left;
   color: #a62626;
 }
+
+
+.categoryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.deleteButton {
+  background-color: #e63946; /* Bright red */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  padding: 8px 12px; /* Add padding */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 14px; /* Text size */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.deleteButton:hover {
+  background-color: #d62828; /* Darker red on hover */
+  transform: scale(1.05); /* Slight zoom-in effect */
+}
+
+.deleteButton:active {
+  background-color: #c70d23; /* Even darker red on click */
+  transform: scale(0.95); /* Slight zoom-out effect */
+}
+
+.deleteButton:focus {
+  outline: none; /* Remove outline on focus */
+  box-shadow: 0 0 4px rgba(230, 57, 70, 0.8); /* Add a focus glow */
+}

@@ -50,9 +50,9 @@ function Header() {
       window.location.href = "/"; // This will navigate to the homepage and reload the page
 
       // Optionally, show a success message
-      toast.success("You have successfully logged out!");
+      toast.success("شما با موفقیت از حساب کاربری خود خارج شدید!");
     } catch (error) {
-      toast.error("An error occurred while logging out.");
+      toast.error("خروج شما با مشکل مواجه شده است.");
     }
   };
   const [userDetail, setUserDetail] = useState([]);

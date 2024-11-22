@@ -1,32 +1,4 @@
-// import { useState } from "react";
 
-// import CheckOtpForm from "components/templates/CheckOtpForm";
-// import SendOtpForm from "components/templates/SendOtpForm";
-
-// function AuthPage() {
-//   const [step, setStep] = useState(1);
-//   const [mobile, setMobile] = useState("");
-//   const [code, setCode] = useState("");
-
-//   return (
-//     <div>
-//       {step === 1 && (
-//         <SendOtpForm setStep={setStep} mobile={mobile} setMobile={setMobile} />
-//       )}
-//       {step === 2 && (
-//         <CheckOtpForm
-//           code={code}
-//           setCode={setCode}
-//           mobile={mobile}
-//           setStep={setStep}
-//         />
-//       )}
-//     </div>
-//   );
-// }
-
-// export default AuthPage;
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -54,12 +26,12 @@ function Login() {
     const newErrors = {};
 
     if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = "آدرس ایمیل را به درستی وارد کنید";
       isValid = false;
     }
 
     if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters";
+      newErrors.password = "رمز عبور شما باید بیشتر از 8 کارکتر باشد";
       isValid = false;
     }
 
@@ -78,26 +50,34 @@ function Login() {
             password: formData.password,
           }
         );
-
+  
         if (response) {
           toast.success("عملیات با موفقیت انجام شد");
-        const accessToken = response.data.data.token;
-        const userName = response.data.data.user;
-        console.log({accessToken});
-        console.log({userName});
-        setCookie("accessToken", accessToken , 1); // Set the access token cookie for 1 day
-        setCookie("userName", encodeURIComponent(userName), 1); // Set the username cookie for 1 day
+          const accessToken = response.data.data.token;
+          const userName = response.data.data.user;
+          console.log({ accessToken });
+          console.log({ userName });
+          setCookie("accessToken", accessToken, 1); // Set the access token cookie for 1 day
+          setCookie("userName", encodeURIComponent(userName), 1); // Set the username cookie for 1 day
+          toast.success(" شما با موفقیت وارد شدید. ");
 
-        window.location.href = "/"; // This will navigate to the homepage and reload the page
-        } else {
-          const errorData = await response.json();
-          toast.error("مشکلی پیش آمده است");
+          window.location.href = "/"; // This will navigate to the homepage and reload the page
         }
       } catch (error) {
-        toast.error("مشکلی پیش آمده است");
+        // Check if error response exists and handle specific status codes
+        if (error.response) {
+          if (error.response.status === 403) {
+            toast.error("شما ثبت نام نکرده اید");
+          } else {
+            toast.error("مشکلی پیش آمده است");
+          }
+        } else {
+          toast.error("مشکلی در اتصال به سرور رخ داده است");
+        }
       }
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit} style={styles.form}>

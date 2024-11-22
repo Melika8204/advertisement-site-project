@@ -14,7 +14,12 @@
   .productDetailContainer:hover {
     transform: scale(1.02);
   }
-  
+  .alertSection{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .productImages {
     flex: 1;
     display: flex;
@@ -64,7 +69,7 @@
   
   .categoryName {
     font-weight: bold;
-    color: #007bff;
+    color: red;
   }
   
   .separator {
@@ -136,7 +141,82 @@
     font-weight: bold;
     color: #007bff;
   }
-  
+  .topSection {
+    margin: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+  .topSection:hover{
+    font-size: bold;
+    color: red;
+  }
+  /* ProductDetail.module.css */
+.productDetailContainer {
+  position: relative;
+}
+
+.userPhone {
+  font-size: 1.1rem;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.userPhone:hover {
+  color: #0056b3;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popupContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+
+}
+
+.registerButton {
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.registerButton:hover {
+  background-color: #6f1818 ;
+}
+
+.closePopupButton {
+  background-color: gray;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.closePopupButton:hover {
+  background-color: rgba(60, 59, 59, 0.779);
+}
+
   @media (max-width: 768px) {
     .productDetailContainer {
       padding: 20px;
