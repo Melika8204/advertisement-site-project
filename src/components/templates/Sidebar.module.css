@@ -19,10 +19,16 @@
   font-weight: 200;
   margin-right: 10px;
   color: grey;
+  white-space: nowrap;
+  cursor: pointer;
 }
 .selected {
   font-weight: bold; /* Makes the selected category bold */
   color: red; /* Change the color to blue, you can choose any color */
   margin-right: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+
+
 
 }

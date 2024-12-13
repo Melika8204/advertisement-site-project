@@ -15,7 +15,7 @@ function AddPost() {
     price: null,
     exchange: "",
     condition: "",
-    Contents: [],
+    contents: [],
   });
 
   const [errors, setErrors] = useState({});
@@ -51,7 +51,7 @@ function AddPost() {
 
   const changeHandler = (event) => {
     const { name, value, files } = event.target;
-    if (name === "Contents") {
+    if (name === "contents") {
       setForm({
         ...form,
         [name]: Array.from(files),
@@ -65,9 +65,9 @@ function AddPost() {
   };
 
   const removeImage = (index) => {
-    const updatedContents = [...form.Contents];
-    updatedContents.splice(index, 1);
-    setForm({ ...form, Contents: updatedContents });
+    const updatedcontents = [...form.contents];
+    updatedcontents.splice(index, 1);
+    setForm({ ...form, contents: updatedcontents });
   };
 
   const validateForm = () => {
@@ -100,8 +100,8 @@ function AddPost() {
     }
 
     // Validate file selection
-    if (form.Contents.length === 0) {
-      validationErrors.Contents = "انتخاب حداقل یک عکس الزامی است";
+    if (form.contents.length === 0) {
+      validationErrors.contents = "انتخاب حداقل یک عکس الزامی است";
     }
 
     return validationErrors;
@@ -119,9 +119,9 @@ function AddPost() {
     const formData = new FormData();
 
     Object.keys(form).forEach((key) => {
-      if (key === "Contents") {
-        form.Contents.forEach((file) => {
-          formData.append("Contents[]", file);
+      if (key === "contents") {
+        form.contents.forEach((file) => {
+          formData.append("contents[]", file);
         });
       } else {
         formData.append(key, form[key]);
@@ -253,6 +253,7 @@ function AddPost() {
           value={form.exchange}
           onChange={changeHandler}
         >
+          <option>انتخاب کنید</option>
           <option value="true">بله</option>
           <option value="false">خیر</option>
         </select>
@@ -270,6 +271,8 @@ function AddPost() {
           value={form.condition}
           onChange={changeHandler}
         >
+          <option>انتخاب کنید</option>
+
           <option value="new">نو</option>
           <option value="like_new">در حد نو</option>
           <option value="old">کهنه</option>
@@ -280,24 +283,24 @@ function AddPost() {
       </div>
 
       {/* Image Upload */}
-        {/* Image Upload */}
-        <div className={styles.inputGroup}>
-        <label htmlFor="Contents">عکس‌ها</label>
+      {/* Image Upload */}
+      <div className={styles.inputGroup}>
+        <label htmlFor="contents">عکس‌ها</label>
         <input
           type="file"
-          name="Contents"
-          id="Contents"
+          name="contents"
+          id="contents"
           multiple
           onChange={changeHandler}
         />
-        {errors.Contents && (
-          <span className={styles.error}>{errors.Contents}</span>
+        {errors.contents && (
+          <span className={styles.error}>{errors.contents}</span>
         )}
       </div>
 
       {/* Preview images with delete buttons */}
       <div className={styles.previewContainer}>
-        {form.Contents.map((file, index) => (
+        {form.contents.map((file, index) => (
           <div key={index} className={styles.previewImage}>
             <img
               src={URL.createObjectURL(file)}
@@ -313,7 +316,7 @@ function AddPost() {
             </button>
           </div>
         ))}
-        </div>
+      </div>
 
       {/* Submit Button */}
       <button type="submit" className={styles.submitButton}>

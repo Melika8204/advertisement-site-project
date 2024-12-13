@@ -12,7 +12,7 @@ function PostList() {
 
   const [allMyProducts, setAllMyProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  console.log({ allMyProducts });
   const getAllMyPrpducts = async () => {
     try {
       const response = await axios.get(
@@ -59,7 +59,6 @@ function PostList() {
         setAllMyProducts(allMyProducts.filter((item) => item.id !== post.id));
         toast.success("محصول با موفقیت حذف شد!");
         window.location.reload();
-
       }
     } catch (error) {
       if (error.response?.status === 401) {
@@ -81,21 +80,47 @@ function PostList() {
         </div>
       ) : allMyProducts.length === 0 ? (
         <p>تا کنون آگهی ثبت نکرده اید</p>
+      ) : allMyProducts.length > 0 ? (
+        allMyProducts.map((post) => {
+          const imageUrl = post.first_pic
+            ? post.first_pic.url || post.first_pic.link
+            : null;
+          return (
+            <div key={post.id} className={styles.post}>
+ <img
+                  src={
+                    post?.first_pic?.link &&
+                    post?.first_pic?.link
+                      ? post?.first_pic?.link
+                      : "https://via.placeholder.com/300?text=No+Image+Submitted"
+                  }
+                  alt={`Product ${post.name}`}
+                  className={styles.productImage}
+                />              <div>
+                <p>{post.name}</p>
+                <span>{post.description}</span>
+              </div>
+              <div className={styles.price}>
+                <p>{new Date(post.created_at).toLocaleDateString("fa-IR")}</p>
+                <span>{sp(post.price)} تومان</span>
+              </div>
+              <button onClick={() => handleDelete(post)}>حذف</button>
+            </div>
+          );
+        })
       ) : (
-        allMyProducts.map((post) => (
-          <div key={post.id} className={styles.post}>
-            <img src={post.first_pic} alt={post.name} />
-            <div>
-              <p>{post.name}</p>
-              <span>{post.description}</span>
-            </div>
-            <div className={styles.price}>
-              <p>{new Date(post.created_at).toLocaleDateString("fa-IR")}</p>
-              <span>{sp(post.price)} تومان</span>
-            </div>
-            <button onClick={() => handleDelete(post)}>حذف</button>
-          </div>
-        ))
+        <div className={styles.noData}>
+          <h2>متاسفانه داده‌ای یافت نشد.</h2>
+          <p>
+            در حال حاضر اطلاعاتی برای نمایش وجود ندارد. لطفاً دوباره تلاش کنید.
+          </p>
+          <img
+            src="https://media.giphy.com/media/xT0xezC9XzI48Dmb1u/giphy.gif"
+            alt="No Data"
+            className={styles.image}
+          />
+          <p>ممنون از صبر شما.</p>
+        </div>
       )}
     </div>
   );
